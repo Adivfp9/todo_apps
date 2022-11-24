@@ -7,7 +7,7 @@ class Todo {
   String? dueDate;
   bool? starred;
   int? createdAt;
-  String? updatedAt;
+  int? updatedAt;
 
   Todo(
       {this.id,
@@ -25,8 +25,8 @@ class Todo {
     parentId = json['parentId'];
     taskName = json['taskName'];
     isDone = json['isDone'];
-    startDate = json['startDate'];
-    dueDate = json['dueDate'];
+    startDate = json['startDate'].toString();
+    dueDate = json['dueDate'].toString();
     starred = json['starred'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
