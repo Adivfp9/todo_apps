@@ -1,24 +1,24 @@
 import 'package:dio/dio.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:todo_apps/data/repository/responses/todo_response.dart';
 
 class ApiServices {
   final String baseUrl = "http://10.0.2.2:5000";
   final String apiKey = "";
 
-  final Dio _dio = Dio();
-  // ApiServices({Dio? dio}) {
-  //   _dio = dio ?? Dio();
-  //   if (kDebugMode) {
-  //     _dio.interceptors.add(PrettyDioLogger(
-  //       requestHeader: true,
-  //       requestBody: true,
-  //       responseBody: true,
-  //       responseHeader: false,
-  //     ));
-  //   }
-  // }
+  Dio _dio = Dio();
+  ApiServices({Dio? dio}) {
+    _dio = dio ?? Dio();
+    if (kDebugMode) {
+      _dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+      ));
+    }
+  }
 
   Future<TodoResponse?> getTodo() async {
     try {
@@ -49,6 +49,17 @@ class ApiServices {
       Response response = await _dio.put(
         baseUrl,
         data: data,
+      );
+      return response.statusMessage;
+    } catch (e) {
+      return "Gagal : ${e.toString()}";
+    }
+  }
+
+  Future<String?> deleteTodoData(int id) async {
+    try {
+      Response response = await _dio.delete(
+        '$baseUrl/$id',
       );
       return response.statusMessage;
     } catch (e) {

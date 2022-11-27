@@ -1,6 +1,6 @@
 class Todo {
   int? id;
-  String? parentId;
+  int? parentId;
   String? taskName;
   bool? isDone;
   String? startDate;

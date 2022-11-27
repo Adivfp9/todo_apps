@@ -10,6 +10,7 @@ class TodoProvider extends ChangeNotifier {
   bool? isLoading = false;
   bool? isCheckDone;
   List<Todo> todoList = [];
+  List<Todo> subTodoList = [];
   String todoTitle = '';
   DateTime? todoStartDate, todoDueDate;
   TextEditingController? titleCtrl = TextEditingController();
@@ -22,9 +23,17 @@ class TodoProvider extends ChangeNotifier {
   getTodoList() async {
     isLoading = true;
     todoList.clear();
+    subTodoList.clear();
     TodoResponse? response = await _apiService.getTodo();
     List<Todo>? todos = response!.data;
-    todoList.addAll(todos!);
+
+    Iterable<Todo> parentTodo =
+        todos!.where((element) => element.parentId == null);
+    Iterable<Todo> childTodo =
+        todos.where((element) => element.parentId != null);
+
+    todoList.addAll(parentTodo);
+    subTodoList.addAll(childTodo);
     isLoading = false;
     notifyListeners();
   }
@@ -64,5 +73,9 @@ class TodoProvider extends ChangeNotifier {
 
   Future<String?> updateTodo(Todo data) async {
     return await _apiService.updateTodoData(data.toJson());
+  }
+
+  Future<String?> deleteData(int id) async {
+    return await _apiService.deleteTodoData(id);
   }
 }
