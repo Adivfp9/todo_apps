@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_apps/data/models/todo.dart';
 import 'package:todo_apps/data/provider/todo/todo_provider.dart';
+import 'package:todo_apps/ui/todo/todo_addtask.dart';
 import 'package:todo_apps/ui/todo/todo_detail.dart';
 import 'package:todo_apps/ui/widgets/forms/textfield.dart';
 
@@ -138,6 +139,26 @@ class TodoPages extends StatelessWidget {
                                               ? Colors.black
                                               : Colors.blueGrey),
                                     ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                      child: ElevatedButton.icon(
+                                        icon: const Icon(Icons.add),
+                                        label: const Text("Add Sub Task"),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/add_subtask',
+                                              arguments: AddTaskPages(
+                                                todo: state.todoList[idx],
+                                              ));
+                                        },
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -229,7 +250,7 @@ class TodoPages extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Edit Child Todo"),
+            title: const Text("Edit SubTask"),
             content: SingleChildScrollView(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,

@@ -37,15 +37,13 @@ class _TodoDetailPageState extends State<TodoDetailPage> {
                         padding: const EdgeInsets.all(20),
                         child: Column(children: [
                           TxtField(
-                              label: "Title",
+                              label: "Task Name",
                               value:
                                   widget.isUpdate ? widget.todo.taskName : '',
                               onChanged: (value) {
                                 state.setTitle(value);
                                 widget.todo.taskName = value;
                               },
-                              validator: (val) =>
-                                  val!.isEmpty ? 'Title must be filled' : null,
                               iconField: Icons.task),
                           TxtDatePicker(
                               label: "Start Date",

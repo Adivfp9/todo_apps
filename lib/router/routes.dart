@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_apps/ui/todo/todo.dart';
+import 'package:todo_apps/ui/todo/todo_addtask.dart';
 import 'package:todo_apps/ui/todo/todo_detail.dart';
 
 class Routes {
@@ -12,6 +13,13 @@ class Routes {
         return MaterialPageRoute(builder: (context) {
           return TodoDetailPage(
             isUpdate: args.isUpdate,
+            todo: args.todo,
+          );
+        });
+      case '/add_subtask':
+        final args = router.arguments as AddTaskPages;
+        return MaterialPageRoute(builder: (context) {
+          return AddTaskPages(
             todo: args.todo,
           );
         });
